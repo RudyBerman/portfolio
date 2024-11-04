@@ -1,2 +1,2 @@
-# portfolio
-Collection of projects demonstrating my technical abilities
+# Portfolio
+Collection of projects 
