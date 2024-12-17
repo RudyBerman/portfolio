@@ -1,7 +1,4 @@
-import openai
-import json
-from pubchem_query import pug_rest_request
-
+# Configuring tools object to be used for funcion calls.
 tools = [
   {
       "type": "function",
@@ -38,29 +35,3 @@ tools = [
       }
   }
 ]
-
-query = input("Ask a chem question: ")
-
-messages = [
-  {
-      "role": "system",
-      "content": "You are a helpful assistant who provides information that can be found on PubChem to user's based on their queries. Use the supplied tools to assist the user by creating a query for PubChem's PUG-REST API."
-  },
-  {
-      "role": "user",
-      "content": query
-  }
-]
-
-response = openai.chat.completions.create(
-  model="gpt-4o",
-  messages=messages,
-  tools=tools,
-)
-
-tool_call = response.choices[0].message.tool_calls[0]
-arguments = json.loads(tool_call.function.arguments)
-print(arguments, type(arguments))
-
-out = pug_rest_request(**arguments)
-print("OUTPUT:", out)
